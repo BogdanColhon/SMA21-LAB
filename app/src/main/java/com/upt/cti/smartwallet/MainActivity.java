@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     prefsUser.edit().putString("CurrentMonth", currentMonth).apply();
 
                     tStatus.setText("Searching ...");
-                    //System.out.println(currentMonth=="march");
+                    System.out.println(currentMonth=="march");
                    // if(currentMonth=="january"||currentMonth=="february"||currentMonth=="march")
                     createNewDBListener();
                 } else {
@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.bUpdate:
                 if(!eIncome.getText().toString().isEmpty() && !eExpenses.getText().toString().isEmpty()){
                     currentMonth = eSearch.getText().toString().toLowerCase();
-                    System.out.println("aici");
                     tStatus.setText("Searching ...");
                     createNewUpdateDbListener();
                 }else {
