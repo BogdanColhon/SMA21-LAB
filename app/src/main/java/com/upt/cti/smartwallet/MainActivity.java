@@ -9,22 +9,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.upt.cti.smartwallet.model.MonthlyExpenses;
 import com.upt.cti.smartwallet.model.Payment;
 import com.upt.cti.smartwallet.ui.PaymentAdapter;
 
@@ -57,11 +50,22 @@ public class MainActivity extends AppCompatActivity {
         if (currentMonth == -1)
             currentMonth = Month.monthFromTimestamp(AppState.getCurrentTimeDate());
 
-
         // setup firebase
         final FirebaseDatabase database = FirebaseDatabase.getInstance("https://smart-wallet-5eb90-default-rtdb.europe-west1.firebasedatabase.app/");
+        database.setPersistenceEnabled(true);
         databaseReference = database.getReference();
+        databaseReference.child("wallet").keepSynced(true);
 
+        if (!AppState.isNetworkAvailable(this)) {
+            // has local storage already
+            if (AppState.get().hasLocalStorage(this)) {
+                payments = AppState.get().loadFromLocalBackup(this);
+                tStatus.setText("Found " + payments.size() + " payments");
+
+            } else {
+                Toast.makeText(this, "This app needs an internet connection!", Toast.LENGTH_SHORT).show();
+            }
+        }
 
         AppState.get().setDatabaseReference(databaseReference);
         AppState.get().getDatabaseReference().child("wallet").addChildEventListener(new ChildEventListener() {
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                                 Month.intToMonthName(currentMonth) + ".");
                     if (payment != null) {
                         payment.timestamp = snapshot.getKey();
-
+                        AppState.get().updateLocalBackup(getApplicationContext(), payment, true);
                         if (!payments.contains(payment)) {
                             payments.add(payment);
 
@@ -155,4 +159,5 @@ public class MainActivity extends AppCompatActivity {
             return month - 1;
         }
     }
+
 }
