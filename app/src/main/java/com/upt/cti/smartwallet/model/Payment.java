@@ -13,8 +13,7 @@ public class Payment {
     public Payment() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
-    public Payment(String timestamp, double cost, String name, String type) {
-        this.timestamp=timestamp;
+    public Payment(double cost, String name, String type) {
         this.cost=cost;
         this.name=name;
         this.type=type;
@@ -34,11 +33,6 @@ public class Payment {
 
     @Override
     public String toString() {
-        return "Payment{" +
-                "timestamp='" + timestamp + '\'' +
-                ", cost=" + cost +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                '}';
+        return "timestamp='" + timestamp + '\'' + "cost=" + cost + "name='" + name + '\'' + "type='" + type;
     }
 }

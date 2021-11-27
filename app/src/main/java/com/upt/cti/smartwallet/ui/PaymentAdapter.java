@@ -2,6 +2,7 @@ package com.upt.cti.smartwallet.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.upt.cti.smartwallet.AddPaymentActivity;
+import com.upt.cti.smartwallet.AppState;
 import com.upt.cti.smartwallet.R;
 import com.upt.cti.smartwallet.model.Payment;
 
@@ -59,8 +62,13 @@ public class PaymentAdapter extends ArrayAdapter<Payment> {
         itemHolder.tCost.setText(pItem.getCost() + " LEI");
         itemHolder.tType.setText(pItem.getType());
         itemHolder.tDate.setText("Date: " + pItem.timestamp.substring(0, 10));
-        itemHolder.tTime.setText("Time: " + pItem.timestamp.substring(11));
+        itemHolder.tTime.setText("Time: " + pItem.timestamp.substring(11,19));
 
+
+        view.setOnClickListener(view1 -> {
+            AppState.get().setCurrentPayment(payments.get(position));
+            context.startActivity(new Intent(context, AddPaymentActivity.class));
+        });
         return view;
     }
 

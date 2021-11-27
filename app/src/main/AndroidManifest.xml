@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartWallet">
+        <activity
+            android:name=".AddPaymentActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"
+            android:exported="false" />
         <activity android:name=".SecondMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
