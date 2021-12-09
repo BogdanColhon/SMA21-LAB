@@ -20,6 +20,32 @@
         tools:context="com.upt.cti.smartwallet.MainActivity6">
 
         <TextView
+            android:id="@+id/tUser"
+            android:layout_width="150dp"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.888"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.169" />
+
+        <TextView
+            android:id="@+id/tLoginDetail"
+            android:layout_width="152dp"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.161"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.169" />
+
+        <TextView
             android:id="@+id/tStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

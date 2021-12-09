@@ -74,7 +74,6 @@ public class AppState {
         }
     }
 
-
     public boolean hasLocalStorage(Context context) {
         return context.getFilesDir().listFiles().length > 0;
     }
@@ -110,4 +109,11 @@ public class AppState {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+    public String getUserID(){return currentPayment.getUser();}
+
+    public String getTimeStamp() {return currentPayment.timestamp;}
+
+    public void setUserId(String uid) { currentPayment.setUser(uid);}
+
 }

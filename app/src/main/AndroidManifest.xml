@@ -10,9 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartWallet">
         <activity
+            android:name=".SignupActivity"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".AddPaymentActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
         <activity android:name=".SecondMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

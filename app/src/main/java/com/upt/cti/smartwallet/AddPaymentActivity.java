@@ -1,7 +1,10 @@
 package com.upt.cti.smartwallet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,6 +14,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.upt.cti.smartwallet.model.Payment;
@@ -21,6 +29,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddPaymentActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private static final int REQ_SIGNIN = 3;
     private DatabaseReference databaseReference;
     private EditText eName;
     private EditText eCost;
@@ -34,6 +45,7 @@ public class AddPaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_payment);
         setTitle("Add or edit payment");
+
 
         // ui
         eName = (EditText) findViewById(R.id.eName);
@@ -63,11 +75,11 @@ public class AddPaymentActivity extends AppCompatActivity {
         }
     }
 
+
     public void clicked(View view) {
         switch (view.getId()) {
             case R.id.bSave:
                 if (payment != null) {
-                    System.out.println("aici jos!");
                     save(payment.timestamp);
                 }else
                     save(AppState.getCurrentTimeDate());
@@ -87,6 +99,7 @@ public class AddPaymentActivity extends AppCompatActivity {
         map.put("cost", Double.parseDouble(eCost.getText().toString()));
         map.put("name", eName.getText().toString());
         map.put("type",sType.getSelectedItem().toString());
+        map.put("user",AppState.get().getUserID());
 
         System.out.println("timestamp: " + timestamp);
 
