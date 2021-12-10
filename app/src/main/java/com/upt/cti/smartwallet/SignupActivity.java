@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -63,6 +64,7 @@ public class SignupActivity extends Activity {
                 updateUI(user);
             }
         };
+
     }
 
     @Override
@@ -97,6 +99,11 @@ public class SignupActivity extends Activity {
                         hideProgressDialog();
                     }
                 });
+        Intent intent = new Intent(getApplicationContext(), SecondMainActivity.class);
+        intent.putExtra("user", email);
+        intent.putExtra("pass", password);
+        setResult(RESULT_OK);
+        finish();
     }
 
     private void signIn(String email, String password) {
@@ -124,6 +131,11 @@ public class SignupActivity extends Activity {
                         hideProgressDialog();
                     }
                 });
+        Intent intent = new Intent(getApplicationContext(), SecondMainActivity.class);
+        intent.putExtra("user", email);
+        intent.putExtra("pass", password);
+        setResult(RESULT_OK);
+        finish();
     }
 
     private void signOut() {

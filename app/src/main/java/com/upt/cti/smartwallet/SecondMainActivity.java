@@ -60,6 +60,8 @@ public class SecondMainActivity extends AppCompatActivity {
         adapter = new PaymentAdapter(this, R.layout.item_payment, payments);
         listPayments.setAdapter(adapter);
 
+        startActivityForResult(new Intent(getApplicationContext(), SignupActivity.class), REQ_SIGNIN);
+
         // setup authentication
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -147,6 +149,20 @@ public class SecondMainActivity extends AppCompatActivity {
                 payments = new ArrayList<>();
                 mAuth.signOut();
                 break;
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_SIGNIN) {
+            if (resultCode == RESULT_OK) {
+                // get data from intent
+                String user = data.getStringExtra("user");
+                String pass = data.getStringExtra("pass");
+                // ...
+            } else if (resultCode == RESULT_CANCELED) {
+                // data was not retrieved
+            }
         }
     }
 }
